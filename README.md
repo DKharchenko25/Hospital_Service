@@ -10,7 +10,8 @@ traumatologist, surgeon, ...) and a list of patients. Implement the ability to s
 - alphabetically;
 - by category;
 - by number of patients.
-  The administrator registers patients and doctors in the system and appoints a doctor to the
+  
+The administrator registers patients and doctors in the system and appoints a doctor to the
   patient.
   The doctor determines the diagnosis, makes appointments to the patient (procedures,
   medications, operations), which are recorded in the Hospital Card. The appointment can be
