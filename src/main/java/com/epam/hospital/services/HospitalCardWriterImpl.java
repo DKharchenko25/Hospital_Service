@@ -1,7 +1,9 @@
 package com.epam.hospital.services;
 
-import com.epam.hospital.models.HospitalCard;
-import com.epam.hospital.models.Patient;
+import com.epam.hospital.data_access_layer.models.HospitalCard;
+import com.epam.hospital.data_access_layer.models.Patient;
+import com.epam.hospital.utils.ApplicationPropertiesLoader;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,11 +14,13 @@ import java.util.Collections;
 import java.util.List;
 
 
+@Slf4j
 public class HospitalCardWriterImpl implements HospitalCardWriter {
 
+
     @Override
-    public void writeHospitalCard(Patient patient, List<HospitalCard> hospitalCardList, String path) {
-        Path cardPath = Paths.get(path);
+    public void writeHospitalCard(Patient patient, List<HospitalCard> hospitalCardList) {
+        Path cardPath = Paths.get(ApplicationPropertiesLoader.load().getProperty("hospitalCard.storagePath"));
         try {
             Files.deleteIfExists(cardPath);
             Files.createFile(cardPath);
@@ -45,6 +49,7 @@ public class HospitalCardWriterImpl implements HospitalCardWriter {
                 }
             }
         } catch (IOException e) {
+            log.error(e.getMessage());
             throw new RuntimeException(e);
         }
     }

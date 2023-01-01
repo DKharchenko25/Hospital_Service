@@ -1,14 +1,14 @@
 package com.epam.hospital.facades;
 
-import com.epam.hospital.converters.HospitalCardConverter;
-import com.epam.hospital.dtos.HospitalCardDto;
+import com.epam.hospital.facades.converters.HospitalCardConverter;
+import com.epam.hospital.facades.dtos.HospitalCardDto;
 import com.epam.hospital.services.HospitalCardService;
 import lombok.NonNull;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.epam.hospital.converters.HospitalCardConverter.convertHospitalCardToDto;
+import static com.epam.hospital.facades.converters.HospitalCardConverter.convertHospitalCardToDto;
 
 public class HospitalCardFacadeImpl implements HospitalCardFacade {
 
@@ -60,8 +60,8 @@ public class HospitalCardFacadeImpl implements HospitalCardFacade {
     }
 
     @Override
-    public void writeAndSendCardToPatient(@NonNull Long patientId, @NonNull String path) {
-        hospitalCardService.writeAndSendCardToPatient(patientId, path);
+    public void writeAndSendCardToPatient(@NonNull Long patientId) {
+        hospitalCardService.writeAndSendCardToPatient(patientId);
 
     }
 }

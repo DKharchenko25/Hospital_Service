@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="lang" value="${not empty param.lang ? param.lang : not empty sessionScope.lang ? sessionScope.lang : 'en'}" scope="session"/>
-<fmt:setLocale value="${lang}"/>
+<fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="messages"/>
-<html lang="${lang}">
+<html lang="${sessionScope.lang}">
 <head>
     <title>Edit Hospital Card</title>
 </head>
@@ -23,7 +22,7 @@
         <p class="card-text">
             <b><fmt:message key="login.role_patient"/>:</b> ${requestScope.card.patient.firstName} ${requestScope.card.patient.lastName}</p>
     </div>
-    <form action="${pageContext.request.contextPath}/edit_card" method="post">
+    <form action="${pageContext.request.contextPath}/controller?command=edit_card" method="post">
         <input type="hidden" name="id" value="${requestScope.card.id}">
         <input type="hidden" name="patientId" value="${requestScope.card.patient.id}">
         <input type="hidden" name="doctorId" value="${requestScope.card.doctor.id}">

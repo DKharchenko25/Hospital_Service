@@ -1,8 +1,10 @@
 package com.epam.hospital.facades;
 
-import com.epam.hospital.converters.HospitalStaffConverter;
-import com.epam.hospital.dtos.HospitalStaffDto;
-import com.epam.hospital.models.HospitalStaff;
+import com.epam.hospital.facades.converters.HospitalStaffConverter;
+import com.epam.hospital.facades.dtos.CategoryDto;
+import com.epam.hospital.facades.dtos.HospitalStaffDto;
+import com.epam.hospital.data_access_layer.models.HospitalStaff;
+import com.epam.hospital.facades.dtos.RoleDto;
 import com.epam.hospital.services.HospitalStaffService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -47,6 +49,8 @@ class HospitalStaffFacadeImplTest {
         dto.setPassword("TestPassword@123");
         dto.setFirstName("John");
         dto.setLastName("Dow");
+        dto.setRole(new RoleDto(1L, "DOCTOR"));
+        dto.setCategory(new CategoryDto(2L, "Oncologist"));
         hospitalStaff = HospitalStaffConverter.convertDtoToHospitalStaff(dto);
         hospitalStaffList = new ArrayList<>();
         hospitalStaffDtoList = hospitalStaffList.stream().map(HospitalStaffConverter::convertHospitalStaffToDto)
@@ -98,7 +102,15 @@ class HospitalStaffFacadeImplTest {
     @Test
     void getHospitalStaffByIdSuccess() {
         when(hospitalStaffService.getHospitalStaffById(1L)).thenReturn(hospitalStaff);
-        assertEquals(HospitalStaffConverter.convertHospitalStaffToDto(hospitalStaff), hospitalStaffFacade.getHospitalStaffById(1L));
+        HospitalStaffDto dto = HospitalStaffConverter.convertHospitalStaffToDto(hospitalStaff);
+        assertEquals(dto.getId(), hospitalStaffFacade.getHospitalStaffById(1L).getId());
+        assertEquals(dto.getUsername(), hospitalStaffFacade.getHospitalStaffById(1L).getUsername());
+        assertEquals(dto.getPassword(), hospitalStaffFacade.getHospitalStaffById(1L).getPassword());
+        assertEquals(dto.getFirstName(), hospitalStaffFacade.getHospitalStaffById(1L).getFirstName());
+        assertEquals(dto.getLastName(), hospitalStaffFacade.getHospitalStaffById(1L).getLastName());
+        assertEquals(dto.getRole().getId(), hospitalStaffFacade.getHospitalStaffById(1L).getRole().getId());
+        assertEquals(dto.getCategory().getId(), hospitalStaffFacade.getHospitalStaffById(1L).getCategory().getId());
+        assertEquals(dto.getNumberOfPatients(), hospitalStaffFacade.getHospitalStaffById(1L).getNumberOfPatients());
     }
 
     @ParameterizedTest
@@ -111,7 +123,14 @@ class HospitalStaffFacadeImplTest {
     @Test
     void getHospitalStaffByUsernameSuccess() {
         when(hospitalStaffService.getHospitalStaffByUsername(hospitalStaff.getUsername())).thenReturn(hospitalStaff);
-        assertEquals(HospitalStaffConverter.convertHospitalStaffToDto(hospitalStaff), hospitalStaffFacade.getHospitalStaffByUsername(hospitalStaff.getUsername()));
+        assertEquals(dto.getId(), hospitalStaffFacade.getHospitalStaffByUsername(hospitalStaff.getUsername()).getId());
+        assertEquals(dto.getUsername(), hospitalStaffFacade.getHospitalStaffByUsername(hospitalStaff.getUsername()).getUsername());
+        assertEquals(dto.getPassword(), hospitalStaffFacade.getHospitalStaffByUsername(hospitalStaff.getUsername()).getPassword());
+        assertEquals(dto.getFirstName(), hospitalStaffFacade.getHospitalStaffByUsername(hospitalStaff.getUsername()).getFirstName());
+        assertEquals(dto.getLastName(), hospitalStaffFacade.getHospitalStaffByUsername(hospitalStaff.getUsername()).getLastName());
+        assertEquals(dto.getRole().getId(), hospitalStaffFacade.getHospitalStaffByUsername(hospitalStaff.getUsername()).getRole().getId());
+        assertEquals(dto.getCategory().getId(), hospitalStaffFacade.getHospitalStaffByUsername(hospitalStaff.getUsername()).getCategory().getId());
+        assertEquals(dto.getNumberOfPatients(), hospitalStaffFacade.getHospitalStaffByUsername(hospitalStaff.getUsername()).getNumberOfPatients());
     }
 
     @ParameterizedTest

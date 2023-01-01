@@ -1,13 +1,15 @@
 package com.epam.hospital.services;
 
-import com.epam.hospital.models.HospitalStaff;
-import com.epam.hospital.models.Patient;
-import com.epam.hospital.repositories.PatientRepository;
-import com.epam.hospital.validators.PasswordEncoder;
+import com.epam.hospital.data_access_layer.models.HospitalStaff;
+import com.epam.hospital.data_access_layer.models.Patient;
+import com.epam.hospital.data_access_layer.repositories.PatientRepository;
+import com.epam.hospital.facades.validators.PasswordEncoder;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+@Slf4j
 public class PatientServiceImpl implements PatientService {
 
     private final PatientRepository patientRepository;
@@ -24,7 +26,9 @@ public class PatientServiceImpl implements PatientService {
             patient.setPassword(PasswordEncoder.getEncodedPassword(patient.getPassword()));
             patientRepository.addPatient(patient);
         } else {
-            throw new IllegalArgumentException("User with username: " + patient.getUsername() + " is already exists");
+            String exceptionMessage = "User with username: " + patient.getUsername() + " is already exists";
+            log.error(exceptionMessage);
+            throw new IllegalArgumentException(exceptionMessage);
         }
     }
 
@@ -33,6 +37,7 @@ public class PatientServiceImpl implements PatientService {
         if (patientRepository.getPatientById(id).isPresent()) {
             return patientRepository.getPatientById(id).get();
         } else {
+            log.error(getExceptionMessage(id));
             throw new IllegalArgumentException(getExceptionMessage(id));
         }
     }
@@ -46,7 +51,9 @@ public class PatientServiceImpl implements PatientService {
         if (patientRepository.getPatientByUsername(username).isPresent()) {
             return patientRepository.getPatientByUsername(username).get();
         } else {
-            throw new IllegalArgumentException("Patient with username " + username + " is not found");
+            String exceptionMessage = "Patient with username " + username + " is not found";
+            log.error(exceptionMessage);
+            throw new IllegalArgumentException(exceptionMessage);
         }
     }
 
@@ -87,13 +94,16 @@ public class PatientServiceImpl implements PatientService {
             HospitalStaff hospitalStaff = hospitalStaffService.getHospitalStaffById(doctorId);
             Patient patient = patientRepository.getPatientById(patientId).get();
             if (isAttached(patientId, doctorId)) {
-                throw new IllegalArgumentException(String.format("Patient %s is already attached to doctor %s",
-                        patient.getUsername(), hospitalStaff.getUsername()));
+                String exceptionMessage = String.format("Patient %s is already attached to doctor %s",
+                        patient.getUsername(), hospitalStaff.getUsername());
+                log.error(exceptionMessage);
+                throw new IllegalArgumentException(exceptionMessage);
             }
             patientRepository.appointPatientToDoctor(patientId, hospitalStaff.getId());
             hospitalStaffService.updateNumberOfPatientsById(doctorId,
                     hospitalStaff.getNumberOfPatients() + 1);
         } else {
+            log.error(getExceptionMessage(patientId));
             throw new IllegalArgumentException(getExceptionMessage(patientId));
         }
     }
@@ -112,6 +122,7 @@ public class PatientServiceImpl implements PatientService {
                         hospitalStaff.getNumberOfPatients() - 1);
             }
         } else {
+            log.error(getExceptionMessage(id));
             throw new IllegalArgumentException(getExceptionMessage(id));
         }
     }
@@ -122,6 +133,7 @@ public class PatientServiceImpl implements PatientService {
             dischargePatientById(id);
             patientRepository.deletePatientById(id);
         } else {
+            log.error(getExceptionMessage(id));
             throw new IllegalArgumentException(getExceptionMessage(id));
         }
     }
@@ -132,6 +144,7 @@ public class PatientServiceImpl implements PatientService {
                 patientRepository.getPatientById(id).isPresent()) {
             patientRepository.updatePatientUsernameById(id, username);
         } else {
+            log.error(getExceptionMessage(id));
             throw new IllegalArgumentException(getExceptionMessage(id) + " Or input username is already exists");
         }
     }
@@ -141,6 +154,7 @@ public class PatientServiceImpl implements PatientService {
         if (patientRepository.getPatientById(id).isPresent()) {
             patientRepository.updatePatientPasswordById(id, PasswordEncoder.getEncodedPassword(password));
         } else {
+            log.error(getExceptionMessage(id));
             throw new IllegalArgumentException(getExceptionMessage(id));
         }
     }
@@ -150,6 +164,7 @@ public class PatientServiceImpl implements PatientService {
         if (patientRepository.getPatientById(id).isPresent()) {
             patientRepository.updatePatientFirstNameById(id, firstName);
         } else {
+            log.error(getExceptionMessage(id));
             throw new IllegalArgumentException(getExceptionMessage(id));
         }
     }
@@ -159,6 +174,7 @@ public class PatientServiceImpl implements PatientService {
         if (patientRepository.getPatientById(id).isPresent()) {
             patientRepository.updatePatientLastNameById(id, lastName);
         } else {
+            log.error(getExceptionMessage(id));
             throw new IllegalArgumentException(getExceptionMessage(id));
         }
     }
@@ -168,6 +184,7 @@ public class PatientServiceImpl implements PatientService {
         if (patientRepository.getPatientById(id).isPresent()) {
             patientRepository.updatePatientBirthDateById(id, date);
         } else {
+            log.error(getExceptionMessage(id));
             throw new IllegalArgumentException(getExceptionMessage(id));
         }
     }
@@ -177,6 +194,7 @@ public class PatientServiceImpl implements PatientService {
         if (patientRepository.getPatientById(id).isPresent()) {
             patientRepository.updatePatientEmailById(id, email);
         } else {
+            log.error(getExceptionMessage(id));
             throw new IllegalArgumentException(getExceptionMessage(id));
         }
     }
@@ -186,6 +204,7 @@ public class PatientServiceImpl implements PatientService {
         if (patientRepository.getPatientById(id).isPresent()) {
             patientRepository.updatePatientPhoneNumberById(id, phoneNumber);
         } else {
+            log.error(getExceptionMessage(id));
             throw new IllegalArgumentException(getExceptionMessage(id));
         }
     }

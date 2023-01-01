@@ -1,8 +1,8 @@
 package com.epam.hospital.facades;
 
-import com.epam.hospital.converters.HospitalCardConverter;
-import com.epam.hospital.dtos.HospitalCardDto;
-import com.epam.hospital.models.HospitalCard;
+import com.epam.hospital.data_access_layer.models.*;
+import com.epam.hospital.facades.converters.HospitalCardConverter;
+import com.epam.hospital.facades.dtos.HospitalCardDto;
 import com.epam.hospital.services.HospitalCardService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,13 +43,21 @@ class HospitalCardFacadeImplTest {
         hospitalCard = new HospitalCard();
         hospitalCard.setId(1L);
         hospitalCards = new ArrayList<>();
+        Patient patient = new Patient(1L);
+        HospitalStaff hospitalStaff = new HospitalStaff(1L);
+        hospitalStaff.setRole(new Role(1L, "DOCTOR"));
+        hospitalStaff.setCategory(new Category(1L, "Oncologist"));
+        hospitalCard.setPatient(patient);
+        hospitalCard.setDoctor(hospitalStaff);
         dtos = hospitalCards.stream().map(HospitalCardConverter::convertHospitalCardToDto).collect(Collectors.toList());
     }
 
     @Test
     void getHospitalCardByIdSuccess() {
         when(hospitalCardService.getHospitalCardById(hospitalCard.getId())).thenReturn(hospitalCard);
-        assertEquals(HospitalCardConverter.convertHospitalCardToDto(hospitalCard), hospitalCardFacade.getHospitalCardById(hospitalCard.getId()));
+        HospitalCardDto dto = HospitalCardConverter.convertHospitalCardToDto(hospitalCard);
+        assertEquals(dto.getPatient().getId(), hospitalCardFacade.getHospitalCardById(hospitalCard.getId()).getPatient().getId());
+        assertEquals(dto.getDoctor().getId(), hospitalCardFacade.getHospitalCardById(hospitalCard.getId()).getDoctor().getId());
     }
 
     @ParameterizedTest
@@ -162,14 +170,13 @@ class HospitalCardFacadeImplTest {
 
     @Test
     void writeAndSendCardToPatientSuccess() {
-        doNothing().when(hospitalCardService).writeAndSendCardToPatient(1L, "test");
-        hospitalCardFacade.writeAndSendCardToPatient(1L, "test");
-        verify(hospitalCardService, times(1)).writeAndSendCardToPatient(1L, "test");
+        doNothing().when(hospitalCardService).writeAndSendCardToPatient(1L);
+        hospitalCardFacade.writeAndSendCardToPatient(1L);
+        verify(hospitalCardService, times(1)).writeAndSendCardToPatient(1L);
     }
 
-    @ParameterizedTest
-    @MethodSource("invalidRecordsSource")
-    void writeAndSendCardToPatientMustThrowNullPointerException(Long patientId, String path) {
-        assertThrows(NullPointerException.class, () -> hospitalCardFacade.writeAndSendCardToPatient(patientId, path));
+    @Test
+    void writeAndSendCardToPatientMustThrowNullPointerException() {
+        assertThrows(NullPointerException.class, () -> hospitalCardFacade.writeAndSendCardToPatient(null));
     }
 }

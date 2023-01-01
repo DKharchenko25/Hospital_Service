@@ -1,14 +1,17 @@
 package com.epam.hospital.repositories;
 
-import com.epam.hospital.daos.Dao;
-import com.epam.hospital.models.HospitalCard;
-import com.epam.hospital.models.HospitalStaff;
-import com.epam.hospital.models.Patient;
+import com.epam.hospital.data_access_layer.daos.Dao;
+import com.epam.hospital.data_access_layer.models.HospitalCard;
+import com.epam.hospital.data_access_layer.models.HospitalStaff;
+import com.epam.hospital.data_access_layer.models.Patient;
+import com.epam.hospital.data_access_layer.repositories.HospitalCardRepository;
+import com.epam.hospital.data_access_layer.repositories.HospitalCardRepositoryImpl;
+import com.epam.hospital.data_access_layer.repositories.HospitalStaffRepository;
+import com.epam.hospital.data_access_layer.repositories.PatientRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;

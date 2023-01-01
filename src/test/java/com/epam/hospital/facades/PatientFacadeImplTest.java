@@ -1,8 +1,8 @@
 package com.epam.hospital.facades;
 
-import com.epam.hospital.converters.PatientConverter;
-import com.epam.hospital.dtos.PatientDto;
-import com.epam.hospital.models.Patient;
+import com.epam.hospital.facades.converters.PatientConverter;
+import com.epam.hospital.facades.dtos.PatientDto;
+import com.epam.hospital.data_access_layer.models.Patient;
 import com.epam.hospital.services.PatientService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,8 +1,8 @@
 package com.epam.hospital.services;
 
-import com.epam.hospital.models.HospitalCard;
-import com.epam.hospital.models.Patient;
-import com.epam.hospital.repositories.HospitalCardRepository;
+import com.epam.hospital.data_access_layer.models.HospitalCard;
+import com.epam.hospital.data_access_layer.models.Patient;
+import com.epam.hospital.data_access_layer.repositories.HospitalCardRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -250,32 +250,32 @@ class HospitalCardServiceImplTest {
     @Test
     void writeAndSendCardToPatientSuccess() {
         when(patientService.getPatientById(2L)).thenReturn(patient);
-        doNothing().when(hospitalCardWriter).writeHospitalCard(patient, hospitalCards, "/test");
-        doNothing().when(emailService).sendHospitalCard(any(Patient.class), any(String.class));
+        doNothing().when(hospitalCardWriter).writeHospitalCard(patient, hospitalCards);
+        doNothing().when(emailService).sendHospitalCard(any(Patient.class));
 
-        hospitalCardService.writeAndSendCardToPatient(patient.getId(), "/test");
-        verify(hospitalCardWriter, times(1)).writeHospitalCard(patient, hospitalCards, "/test");
-        verify(emailService, times(1)).sendHospitalCard(patient, "/test");
+        hospitalCardService.writeAndSendCardToPatient(patient.getId());
+        verify(hospitalCardWriter, times(1)).writeHospitalCard(patient, hospitalCards);
+        verify(emailService, times(1)).sendHospitalCard(patient);
     }
 
     @Test
     void writeAndSendCardToPatientMustThrowRuntimeException() {
-        lenient().doThrow(RuntimeException.class).when(hospitalCardWriter).writeHospitalCard(patient, hospitalCards, "/test");
-        assertThrows(RuntimeException.class, () -> hospitalCardService.writeAndSendCardToPatient(2L, "/test"));
+        lenient().doThrow(RuntimeException.class).when(hospitalCardWriter).writeHospitalCard(patient, hospitalCards);
+        assertThrows(RuntimeException.class, () -> hospitalCardService.writeAndSendCardToPatient(2L));
 
-        lenient().doThrow(RuntimeException.class).when(emailService).sendHospitalCard(patient, "/test");
-        assertThrows(RuntimeException.class, () -> hospitalCardService.writeAndSendCardToPatient(2L, "/test"));
+        lenient().doThrow(RuntimeException.class).when(emailService).sendHospitalCard(patient);
+        assertThrows(RuntimeException.class, () -> hospitalCardService.writeAndSendCardToPatient(2L));
     }
 
     @Test
     void writeAndSendCardToPatientMustThrowIllegalArgumentException() {
         when(patientService.getPatientById(1L)).thenThrow(IllegalArgumentException.class);
-        assertThrows(IllegalArgumentException.class, () -> hospitalCardService.writeAndSendCardToPatient(1L, "test"));
+        assertThrows(IllegalArgumentException.class, () -> hospitalCardService.writeAndSendCardToPatient(1L));
     }
 
     @ParameterizedTest
     @MethodSource("invalidRecordsValues")
     void writeAndSendCardToPatientMustThrowNullPointerException(Long id, String path) {
-        assertThrows(NullPointerException.class, () -> hospitalCardService.writeAndSendCardToPatient(id, path));
+        assertThrows(NullPointerException.class, () -> hospitalCardService.writeAndSendCardToPatient(id));
     }
 }

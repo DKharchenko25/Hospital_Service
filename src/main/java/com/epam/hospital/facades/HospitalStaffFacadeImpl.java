@@ -1,18 +1,18 @@
 package com.epam.hospital.facades;
 
-import com.epam.hospital.InvalidInputException;
-import com.epam.hospital.converters.HospitalStaffConverter;
-import com.epam.hospital.dtos.HospitalStaffDto;
+import com.epam.hospital.exceptions.InvalidInputException;
+import com.epam.hospital.facades.converters.HospitalStaffConverter;
+import com.epam.hospital.facades.dtos.HospitalStaffDto;
+import com.epam.hospital.facades.validators.StaffInputValidator;
 import com.epam.hospital.services.HospitalStaffService;
-import com.epam.hospital.validators.StaffInputValidator;
 import lombok.NonNull;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.epam.hospital.converters.HospitalStaffConverter.convertDtoToHospitalStaff;
-import static com.epam.hospital.converters.HospitalStaffConverter.convertHospitalStaffToDto;
-import static com.epam.hospital.validators.InputValidator.*;
+import static com.epam.hospital.facades.converters.HospitalStaffConverter.convertDtoToHospitalStaff;
+import static com.epam.hospital.facades.converters.HospitalStaffConverter.convertHospitalStaffToDto;
+import static com.epam.hospital.facades.validators.InputValidator.*;
 
 public class HospitalStaffFacadeImpl implements HospitalStaffFacade {
 

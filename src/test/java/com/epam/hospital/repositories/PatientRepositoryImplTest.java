@@ -1,11 +1,12 @@
 package com.epam.hospital.repositories;
 
-import com.epam.hospital.daos.Dao;
-import com.epam.hospital.daos.PatientDao;
-import com.epam.hospital.daos.RoleDao;
-import com.epam.hospital.models.HospitalStaff;
-import com.epam.hospital.models.Patient;
-import com.epam.hospital.models.Role;
+import com.epam.hospital.data_access_layer.daos.Dao;
+import com.epam.hospital.data_access_layer.daos.PatientDao;
+import com.epam.hospital.data_access_layer.models.HospitalStaff;
+import com.epam.hospital.data_access_layer.models.Patient;
+import com.epam.hospital.data_access_layer.repositories.PatientRepository;
+import com.epam.hospital.data_access_layer.repositories.PatientRepositoryImpl;
+import com.epam.hospital.utils.Sorting;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

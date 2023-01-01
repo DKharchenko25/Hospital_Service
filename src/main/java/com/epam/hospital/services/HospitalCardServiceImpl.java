@@ -1,14 +1,16 @@
 package com.epam.hospital.services;
 
-import com.epam.hospital.models.HospitalCard;
-import com.epam.hospital.models.Patient;
-import com.epam.hospital.repositories.HospitalCardRepository;
+import com.epam.hospital.data_access_layer.models.HospitalCard;
+import com.epam.hospital.data_access_layer.models.Patient;
+import com.epam.hospital.data_access_layer.repositories.HospitalCardRepository;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
+@Slf4j
 public class HospitalCardServiceImpl implements HospitalCardService {
 
     private final HospitalCardRepository hospitalCardRepository;
@@ -44,6 +46,7 @@ public class HospitalCardServiceImpl implements HospitalCardService {
         if (hospitalCardRepository.getHospitalCardById(id).isPresent()) {
             return hospitalCardRepository.getHospitalCardById(id).get();
         } else {
+            log.error(getExceptionMessage(id));
             throw new IllegalArgumentException(getExceptionMessage(id));
         }
     }
@@ -67,6 +70,7 @@ public class HospitalCardServiceImpl implements HospitalCardService {
         if (hospitalCardRepository.getHospitalCardById(id).isPresent()) {
             hospitalCardRepository.deleteHospitalCardById(id);
         } else {
+            log.error(getExceptionMessage(id));
             throw new IllegalArgumentException(getExceptionMessage(id));
         }
 
@@ -77,6 +81,7 @@ public class HospitalCardServiceImpl implements HospitalCardService {
         if (hospitalCardRepository.getHospitalCardById(cardId).isPresent()) {
             hospitalCardRepository.updateProceduresById(cardId, procedure);
         } else {
+            log.error(getExceptionMessage(cardId));
             throw new IllegalArgumentException(getExceptionMessage(cardId));
         }
     }
@@ -86,6 +91,7 @@ public class HospitalCardServiceImpl implements HospitalCardService {
         if (hospitalCardRepository.getHospitalCardById(cardId).isPresent()) {
             hospitalCardRepository.updateMedicationsById(cardId, medication);
         } else {
+            log.error(getExceptionMessage(cardId));
             throw new IllegalArgumentException(getExceptionMessage(cardId));
         }
     }
@@ -95,6 +101,7 @@ public class HospitalCardServiceImpl implements HospitalCardService {
         if (hospitalCardRepository.getHospitalCardById(cardId).isPresent()) {
             hospitalCardRepository.updateOperationsById(cardId, operation);
         } else {
+            log.error(getExceptionMessage(cardId));
             throw new IllegalArgumentException(getExceptionMessage(cardId));
         }
     }
@@ -104,14 +111,15 @@ public class HospitalCardServiceImpl implements HospitalCardService {
         if (hospitalCardRepository.getHospitalCardById(cardId).isPresent()) {
             hospitalCardRepository.updateDiagnosisById(cardId, diagnosis);
         } else {
+            log.error(getExceptionMessage(cardId));
             throw new IllegalArgumentException(getExceptionMessage(cardId));
         }
     }
 
     @Override
-    public void writeAndSendCardToPatient(@NonNull Long patientId, @NonNull String path) {
+    public void writeAndSendCardToPatient(@NonNull Long patientId) {
         Patient patient = patientService.getPatientById(patientId);
-        hospitalCardWriter.writeHospitalCard(patient, getAllPatientHospitalCardsById(patientId), path);
-        emailService.sendHospitalCard(patient, path);
+        hospitalCardWriter.writeHospitalCard(patient, getAllPatientHospitalCardsById(patientId));
+        emailService.sendHospitalCard(patient);
     }
 }

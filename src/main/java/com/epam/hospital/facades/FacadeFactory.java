@@ -1,8 +1,8 @@
 package com.epam.hospital.facades;
 
-import com.epam.hospital.daos.*;
-import com.epam.hospital.models.HospitalCard;
-import com.epam.hospital.repositories.*;
+import com.epam.hospital.data_access_layer.daos.*;
+import com.epam.hospital.data_access_layer.models.HospitalCard;
+import com.epam.hospital.data_access_layer.repositories.*;
 import com.epam.hospital.services.*;
 
 

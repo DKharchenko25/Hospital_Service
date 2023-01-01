@@ -1,6 +1,6 @@
 package com.epam.hospital.facades;
 
-import com.epam.hospital.dtos.HospitalStaffDto;
+import com.epam.hospital.facades.dtos.HospitalStaffDto;
 
 import java.util.List;
 

@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="lang" value="${not empty param.lang ? param.lang : not empty sessionScope.lang ? sessionScope.lang : 'en'}" scope="session"/>
-<fmt:setLocale value="${lang}"/>
+<fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="messages"/>
-<html lang="${lang}">
+<html lang="${sessionScope.lang}">
 <head>
     <title>Patient's Hospital Cards</title>
 </head>
@@ -14,6 +13,7 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <body>
 <jsp:include page="staffNavbar.jsp"/>
+<jsp:include page="languageSelector.jsp"/>
 <div class="container align-content-center">
     <div class="card bg-light mb-3 border-info" style="width: 80rem;">
         <h2 class="card-header text-info"><fmt:message key="patient.card"/> </h2>
@@ -21,11 +21,6 @@
             <c:forEach var="card" items="${requestScope.cards}">
                 <li class="list-group-item">
                     <div class="row">
-                        <div class="col">
-                            <h5 class="text-dark"><fmt:message key="login.role_doctor"/>:</h5>
-                            <p class="card-text">${card.doctor.firstName} ${card.doctor.lastName}
-                                (${card.doctor.category})</p>
-                        </div>
                         <div class="col">
                             <h5 class="text-dark"><fmt:message key="patient.record_date"/>:</h5>
                             <p class="card-text">${card.recordDate}</p>
@@ -47,7 +42,7 @@
                             <p class="card-text">${card.diagnosis}</p>
                         </div>
                         <div class="col">
-                            <a href="${pageContext.request.contextPath}/edit_card?id=${card.id}"
+                            <a href="${pageContext.request.contextPath}/controller?command=edit_card&id=${card.id}"
                                class="btn btn-secondary">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-pencil-square"
@@ -59,7 +54,7 @@
                                 <fmt:message key="patient.edit"/></a>
                         </div>
                         <div class="col">
-                            <a href="${pageContext.request.contextPath}/remove_card?id=${card.id}"
+                            <a href="${pageContext.request.contextPath}/controller?command=remove_card&id=${card.id}"
                                class="btn btn-danger">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-minus" viewBox="0 0 16 16">
                                     <path d="M5.5 9a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"></path>

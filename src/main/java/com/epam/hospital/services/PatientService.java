@@ -1,6 +1,6 @@
 package com.epam.hospital.services;
 
-import com.epam.hospital.models.Patient;
+import com.epam.hospital.data_access_layer.models.Patient;
 
 import java.util.List;
 

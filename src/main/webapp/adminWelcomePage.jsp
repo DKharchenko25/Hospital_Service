@@ -1,11 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="lang" value="${not empty param.lang ? param.lang : not empty sessionScope.lang ? sessionScope.lang : 'en'}" scope="session"/>
-<fmt:setLocale value="${lang}"/>
+<fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="messages"/>
 
-<html lang="${lang}">
+<html lang="${sessionScope.lang}">
 <head>
     <title>Admin Options</title>
 </head>
@@ -15,6 +14,7 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <body>
 <jsp:include page="adminNavbar.jsp"/>
+<jsp:include page="languageSelector.jsp"/>
 <div class="col-auto justify-content-center">
     <h2 class="text-primary"><fmt:message key="admin.h2"/> ${sessionScope.user.firstName}</h2>
     <p class="text-dark"><fmt:message key="admin.text.p"/></p>

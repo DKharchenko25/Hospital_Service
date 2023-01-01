@@ -1,6 +1,6 @@
 package com.epam.hospital.services;
 
-import com.epam.hospital.models.HospitalCard;
+import com.epam.hospital.data_access_layer.models.HospitalCard;
 
 import java.util.List;
 
@@ -24,5 +24,5 @@ public interface HospitalCardService {
 
     void insertRecordToPatientDiagnosis(Long cardId, String diagnosis);
 
-    void writeAndSendCardToPatient(Long patientId, String path);
+    void writeAndSendCardToPatient(Long patientId);
 }

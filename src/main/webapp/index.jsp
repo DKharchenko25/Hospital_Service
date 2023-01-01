@@ -23,10 +23,11 @@
         </svg>
         Hospital Service
     </h1>
+</div>
     <br>
     <h5 class="text-center"><fmt:message key="login.message" /></h5>
     <div class="row justify-content-center">
-        <form class="w-25" action="${pageContext.request.contextPath}/login" method="post">
+        <form class="w-25" action="${pageContext.request.contextPath}/controller?command=login" method="post">
             <div class="form-floating">
                 <div class="form-floating">
                     <input required="required" class="form-control" type="text" id="username" name="username"
@@ -55,6 +56,12 @@
                         </div>
                     </c:if>
                 </div>
+                <div class="form-check-inline">
+                    <input class="form-check-input" type="checkbox" onclick="myFunction()" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        <fmt:message key="show.password"/>
+                    </label>
+                </div>
             </div>
             <br>
             <div class="form-check form-check-inline">
@@ -70,19 +77,23 @@
                         <fmt:message key="role.choose"/>
                 </div>
             </c:if>
-            <c:if test="${requestScope.isRoleWrong == true}">
-                <div class="alert alert-danger" role="alert">
-                    <fmt:message key="role.wrong"/>
-                </div>
-            </c:if>
             <br>
             <div>
-                <button type="submit" class="btn btn-primary"><fmt:message key="login.log_in"/> </button>
+                <button type="submit" class="btn btn-primary btn-block col-md-12"><fmt:message key="login.log_in"/> </button>
             </div>
         </form>
     </div>
-</div>
 
+<script lang="java_script">
+    function myFunction() {
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>

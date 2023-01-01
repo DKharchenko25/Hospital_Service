@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="lang" value="${not empty param.lang ? param.lang : not empty sessionScope.lang ? sessionScope.lang : 'en'}" scope="session"/>
-<fmt:setLocale value="${lang}"/>
+<fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="messages"/>
 <!DOCTYPE HTML>
-<html lang="${lang}">
+<html lang="${sessionScope.lang}">
 <head>
     <title>All Hospital Staff</title>
 </head>
@@ -39,15 +38,15 @@
                 <td>${hospitalStaff.category}</td>
                 <td>${hospitalStaff.role}</td>
                 <td>${hospitalStaff.numberOfPatients}</td>
-                <td><a href="${pageContext.request.contextPath}/get_hospital_staff?id=${hospitalStaff.id}"
+                <td><a href="${pageContext.request.contextPath}/controller?command=get_hospital_staff&id=${hospitalStaff.id}"
                        class="btn btn-info"
                        role="button"><fmt:message key="all_staff.table.details"/></a></td>
-                <td><a href="${pageContext.request.contextPath}/delete_hospital_staff?id=${hospitalStaff.id}"
+                <td><a href="${pageContext.request.contextPath}/controller?command=delete_hospital_staff&id=${hospitalStaff.id}"
                        class="btn btn-danger"
                        role="button"><fmt:message key="all_staff.table.remove"/></a></td>
             </tr>
         </c:forEach> <br>
-        <form class="w-75 p-3" action="${pageContext.request.contextPath}/all_hospital_staff" method="get">
+        <form class="w-75 p-3" action="${pageContext.request.contextPath}/controller?command=all_hospital_staff" method="get">
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="sortingButton"
                         data-bs-toggle="dropdown"
@@ -56,13 +55,13 @@
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="sortingButton">
                     <li><a class="dropdown-item"
-                           href="${pageContext.request.contextPath}/all_hospital_staff?page=${requestScope.currentPage}&sorting=alphabetically"><fmt:message key="all_staff.table.alph"/></a>
+                           href="${pageContext.request.contextPath}/controller?command=all_hospital_staff&page=${requestScope.currentPage}&sorting=alphabetically"><fmt:message key="all_staff.table.alph"/></a>
                     </li>
                     <li><a class="dropdown-item"
-                           href="${pageContext.request.contextPath}/all_hospital_staff?page=${requestScope.currentPage}&sorting=byCategory"><fmt:message key="all_staff.table.category"/></a>
+                           href="${pageContext.request.contextPath}/controller?command=all_hospital_staff&page=${requestScope.currentPage}&sorting=byCategory"><fmt:message key="all_staff.table.category"/></a>
                     </li>
                     <li><a class="dropdown-item"
-                           href="${pageContext.request.contextPath}/all_hospital_staff?page=${requestScope.currentPage}&sorting=byNumberOfPatients"><fmt:message key="all_staff.table.number"/></a>
+                           href="${pageContext.request.contextPath}/controller?command=all_hospital_staff&page=${requestScope.currentPage}&sorting=byNumberOfPatients"><fmt:message key="all_staff.table.number"/></a>
                     </li>
                 </ul>
             </div>
@@ -70,7 +69,7 @@
     </table>
     <div class="row">
         <div class="col-auto">
-            <a href="${pageContext.request.contextPath}/staff_registration" class="btn btn-primary" role="button">
+            <a href="${pageContext.request.contextPath}/controller?command=staff_registration" class="btn btn-primary" role="button">
                 <fmt:message key="all_staff.button.add_staff"/></a>
         </div>
         <div class="col-auto">
@@ -80,7 +79,7 @@
                         <c:when test="${requestScope.currentPage != 1}">
                             <li class="page-item">
                                 <a class="page-link"
-                                   href="${pageContext.request.contextPath}/all_hospital_staff?page=${requestScope.currentPage - 1}&sorting=${requestScope.sorting}">
+                                   href="${pageContext.request.contextPath}/controller?command=all_hospital_staff&page=${requestScope.currentPage - 1}&sorting=${requestScope.sorting}">
                                     <fmt:message key="all_staff.pagination.previous"/></a>
                             </li>
                         </c:when>
@@ -93,14 +92,14 @@
                     <c:forEach begin="1" end="${requestScope.numberOfPages}" var="pageNumber">
                         <li class="page-item">
                             <a class="page-link"
-                               href="${pageContext.request.contextPath}/all_hospital_staff?page=${pageNumber}&sorting=${requestScope.sorting}">${pageNumber}</a>
+                               href="${pageContext.request.contextPath}/controller?command=all_hospital_staff&page=${pageNumber}&sorting=${requestScope.sorting}">${pageNumber}</a>
                         </li>
                     </c:forEach>
                     <c:choose>
                         <c:when test="${requestScope.currentPage != requestScope.numberOfPages}">
                             <li class="page-item">
                                 <a class="page-link"
-                                   href="${pageContext.request.contextPath}/all_hospital_staff?page=${requestScope.currentPage + 1}&sorting=${requestScope.sorting}">
+                                   href="${pageContext.request.contextPath}/controller?command=all_hospital_staff&page=${requestScope.currentPage + 1}&sorting=${requestScope.sorting}">
                                     <fmt:message key="all_staff.pagination.next"/></a>
                             </li>
                         </c:when>

@@ -1,6 +1,6 @@
 package com.epam.hospital.services;
 
-import com.epam.hospital.models.HospitalStaff;
+import com.epam.hospital.data_access_layer.models.HospitalStaff;
 
 import java.util.List;
 

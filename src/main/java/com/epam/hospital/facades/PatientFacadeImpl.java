@@ -1,18 +1,18 @@
 package com.epam.hospital.facades;
 
-import com.epam.hospital.InvalidInputException;
-import com.epam.hospital.converters.PatientConverter;
-import com.epam.hospital.dtos.PatientDto;
+import com.epam.hospital.exceptions.InvalidInputException;
+import com.epam.hospital.facades.converters.PatientConverter;
+import com.epam.hospital.facades.dtos.PatientDto;
+import com.epam.hospital.facades.validators.PatientInputValidator;
 import com.epam.hospital.services.PatientService;
-import com.epam.hospital.validators.PatientInputValidator;
 import lombok.NonNull;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.epam.hospital.converters.PatientConverter.convertDtoToPatient;
-import static com.epam.hospital.converters.PatientConverter.convertPatientToDto;
-import static com.epam.hospital.validators.InputValidator.*;
+import static com.epam.hospital.facades.converters.PatientConverter.convertDtoToPatient;
+import static com.epam.hospital.facades.converters.PatientConverter.convertPatientToDto;
+import static com.epam.hospital.facades.validators.InputValidator.*;
 
 public class PatientFacadeImpl implements PatientFacade {
 

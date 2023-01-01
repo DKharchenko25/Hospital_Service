@@ -1,6 +1,6 @@
 package com.epam.hospital.facades;
 
-import com.epam.hospital.dtos.HospitalCardDto;
+import com.epam.hospital.facades.dtos.HospitalCardDto;
 
 import java.util.List;
 
@@ -21,5 +21,5 @@ public interface HospitalCardFacade {
 
     void insertRecordToPatientDiagnosis(Long cardId, String diagnosis);
 
-    void writeAndSendCardToPatient(Long patientId, String path);
+    void writeAndSendCardToPatient(Long patientId);
 }

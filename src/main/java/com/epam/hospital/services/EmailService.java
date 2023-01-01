@@ -1,8 +1,8 @@
 package com.epam.hospital.services;
 
-import com.epam.hospital.models.Patient;
+import com.epam.hospital.data_access_layer.models.Patient;
 
 public interface EmailService {
 
-    void sendHospitalCard(Patient patient, String filePath);
+    void sendHospitalCard(Patient patient);
 }

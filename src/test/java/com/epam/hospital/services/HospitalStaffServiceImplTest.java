@@ -1,8 +1,8 @@
 package com.epam.hospital.services;
 
-import com.epam.hospital.models.HospitalStaff;
-import com.epam.hospital.repositories.HospitalStaffRepository;
-import com.epam.hospital.validators.PasswordEncoder;
+import com.epam.hospital.data_access_layer.models.HospitalStaff;
+import com.epam.hospital.data_access_layer.repositories.HospitalStaffRepository;
+import com.epam.hospital.facades.validators.PasswordEncoder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

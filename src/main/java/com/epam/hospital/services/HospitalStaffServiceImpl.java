@@ -1,12 +1,14 @@
 package com.epam.hospital.services;
 
-import com.epam.hospital.models.HospitalStaff;
-import com.epam.hospital.repositories.HospitalStaffRepository;
-import com.epam.hospital.validators.PasswordEncoder;
+import com.epam.hospital.data_access_layer.models.HospitalStaff;
+import com.epam.hospital.data_access_layer.repositories.HospitalStaffRepository;
+import com.epam.hospital.facades.validators.PasswordEncoder;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+@Slf4j
 public class HospitalStaffServiceImpl implements HospitalStaffService {
 
     private final HospitalStaffRepository hospitalStaffRepository;
@@ -21,7 +23,9 @@ public class HospitalStaffServiceImpl implements HospitalStaffService {
             hospitalStaff.setPassword(PasswordEncoder.getEncodedPassword(hospitalStaff.getPassword()));
             hospitalStaffRepository.addStaff(hospitalStaff);
         } else {
-            throw new IllegalArgumentException("User with username: " + hospitalStaff.getUsername() + " is already exists");
+            String exceptionMessage = "User with username: " + hospitalStaff.getUsername() + " is already exists";
+            log.error(exceptionMessage);
+            throw new IllegalArgumentException(exceptionMessage);
         }
     }
 
@@ -34,6 +38,7 @@ public class HospitalStaffServiceImpl implements HospitalStaffService {
         if (hospitalStaffRepository.getHospitalStaffById(id).isPresent()) {
             return hospitalStaffRepository.getHospitalStaffById(id).get();
         } else {
+            log.error(getExceptionMessage(id));
             throw new IllegalArgumentException(getExceptionMessage(id));
         }
     }
@@ -43,7 +48,9 @@ public class HospitalStaffServiceImpl implements HospitalStaffService {
         if (hospitalStaffRepository.getHospitalStaffByUsername(username).isPresent()) {
             return hospitalStaffRepository.getHospitalStaffByUsername(username).get();
         } else {
-            throw new IllegalArgumentException("Hospital staff with username: " + username + " is not found");
+            String exceptionMessage = "Hospital staff with username: " + username + " is not found";
+            log.error(exceptionMessage);
+            throw new IllegalArgumentException(exceptionMessage);
         }
     }
 
@@ -89,6 +96,7 @@ public class HospitalStaffServiceImpl implements HospitalStaffService {
         if (hospitalStaffRepository.getHospitalStaffById(id).isPresent()) {
             hospitalStaffRepository.deleteStaffById(id);
         } else {
+            log.error(getExceptionMessage(id));
             throw new IllegalArgumentException(getExceptionMessage(id));
         }
     }
@@ -99,6 +107,7 @@ public class HospitalStaffServiceImpl implements HospitalStaffService {
                 hospitalStaffRepository.getHospitalStaffById(id).isPresent()) {
             hospitalStaffRepository.updateStaffUsernameById(id, username);
         } else {
+            log.error(getExceptionMessage(id));
             throw new IllegalArgumentException(getExceptionMessage(id) + " Or input username is already exists");
         }
     }
@@ -108,6 +117,7 @@ public class HospitalStaffServiceImpl implements HospitalStaffService {
         if (hospitalStaffRepository.getHospitalStaffById(id).isPresent()) {
             hospitalStaffRepository.updateStaffPasswordById(id, PasswordEncoder.getEncodedPassword(password));
         } else {
+            log.error(getExceptionMessage(id));
             throw new IllegalArgumentException(getExceptionMessage(id));
         }
     }
@@ -117,6 +127,7 @@ public class HospitalStaffServiceImpl implements HospitalStaffService {
         if (hospitalStaffRepository.getHospitalStaffById(id).isPresent()) {
             hospitalStaffRepository.updateStaffRoleById(id, role);
         } else {
+            log.error(getExceptionMessage(id));
             throw new IllegalArgumentException(getExceptionMessage(id));
         }
     }
@@ -126,6 +137,7 @@ public class HospitalStaffServiceImpl implements HospitalStaffService {
         if (hospitalStaffRepository.getHospitalStaffById(id).isPresent()) {
             hospitalStaffRepository.updateStaffCategoryById(id, category);
         } else {
+            log.error(getExceptionMessage(id));
             throw new IllegalArgumentException(getExceptionMessage(id));
         }
     }
@@ -135,6 +147,7 @@ public class HospitalStaffServiceImpl implements HospitalStaffService {
         if (hospitalStaffRepository.getHospitalStaffById(id).isPresent()) {
             hospitalStaffRepository.updateStaffFirstNameById(id, firstName);
         } else {
+            log.error(getExceptionMessage(id));
             throw new IllegalArgumentException(getExceptionMessage(id));
         }
     }
@@ -144,6 +157,7 @@ public class HospitalStaffServiceImpl implements HospitalStaffService {
         if (hospitalStaffRepository.getHospitalStaffById(id).isPresent()) {
             hospitalStaffRepository.updateStaffLastNameById(id, lastName);
         } else {
+            log.error(getExceptionMessage(id));
             throw new IllegalArgumentException(getExceptionMessage(id));
         }
     }
@@ -153,6 +167,7 @@ public class HospitalStaffServiceImpl implements HospitalStaffService {
         if (hospitalStaffRepository.getHospitalStaffById(id).isPresent()) {
             hospitalStaffRepository.updateStaffNumberOfPatientsById(id, numberOfPatients);
         } else {
+            log.error(getExceptionMessage(id));
             throw new IllegalArgumentException(getExceptionMessage(id));
         }
     }

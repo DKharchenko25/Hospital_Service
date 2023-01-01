@@ -1,16 +1,18 @@
 package com.epam.hospital.repositories;
 
-import com.epam.hospital.daos.CategoryDao;
-import com.epam.hospital.daos.HospitalStaffDao;
-import com.epam.hospital.daos.RoleDao;
-import com.epam.hospital.models.Category;
-import com.epam.hospital.models.HospitalStaff;
-import com.epam.hospital.models.Role;
+import com.epam.hospital.data_access_layer.daos.CategoryDao;
+import com.epam.hospital.data_access_layer.daos.HospitalStaffDao;
+import com.epam.hospital.data_access_layer.daos.RoleDao;
+import com.epam.hospital.data_access_layer.models.Category;
+import com.epam.hospital.data_access_layer.models.HospitalStaff;
+import com.epam.hospital.data_access_layer.models.Role;
+import com.epam.hospital.data_access_layer.repositories.HospitalStaffRepository;
+import com.epam.hospital.data_access_layer.repositories.HospitalStaffRepositoryImpl;
+import com.epam.hospital.utils.Sorting;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
@@ -53,12 +55,8 @@ class HospitalStaffRepositoryImplTest {
         hospitalStaff.setPassword("TestPassword@123");
         hospitalStaff.setFirstName("John");
         hospitalStaff.setLastName("Dow");
-        hospitalStaff.setRoleId(role.getId());
-        hospitalStaff.setCategoryId(category.getId());
-        hospitalStaff.setRoleName(role.getName());
-        hospitalStaff.setCategoryName(category.getName());
-        hospitalStaff.setCategory(category);
         hospitalStaff.setRole(role);
+        hospitalStaff.setCategory(category);
         hospitalStaffList = new ArrayList<>();
         hospitalStaffList.add(hospitalStaff);
     }
@@ -185,7 +183,7 @@ class HospitalStaffRepositoryImplTest {
 
     @Test
     void getAllHospitalStaffPageableAndSortedByCategorySuccess() {
-        when(hospitalStaffDao.findAllPageableAndSorted(4, 10, Sorting.BY_CATEGORY)).thenReturn(hospitalStaffList);
+        when(hospitalStaffDao.findAllPageableAndSortedByCategory(4, 10)).thenReturn(hospitalStaffList);
         when(roleDao.findById(role.getId())).thenReturn(Optional.of(role));
         when(categoryDao.findById(category.getId())).thenReturn(Optional.of(category));
         assertEquals(hospitalStaffList, hospitalStaffRepository.getAllHospitalStaffPageableAndSortedByCategory(4, 10));
@@ -193,7 +191,7 @@ class HospitalStaffRepositoryImplTest {
 
     @Test
     void getAllHospitalStaffPageableAndSortedByCategoryMustThrowIllegalArgumentException() {
-        when(hospitalStaffDao.findAllPageableAndSorted(4, 10, Sorting.BY_CATEGORY)).thenReturn(hospitalStaffList);
+        when(hospitalStaffDao.findAllPageableAndSortedByCategory(4, 10)).thenReturn(hospitalStaffList);
         when(roleDao.findById(role.getId())).thenReturn(Optional.empty());
         assertThrows(IllegalArgumentException.class, () -> hospitalStaffRepository.getAllHospitalStaffPageableAndSortedByCategory(4, 10));
 

@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="lang" value="${not empty param.lang ? param.lang : not empty sessionScope.lang ? sessionScope.lang : 'en'}" scope="session"/>
-<fmt:setLocale value="${lang}"/>
+<fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="messages"/>
-<html lang="${lang}">
+<html lang="${sessionScope.lang}">
 <head>
     <title>Patient Details</title>
 </head>
@@ -14,12 +13,12 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <body>
 <jsp:include page="adminNavbar.jsp"/>
-<div class="card bg-light mb-3 border-info" style="width: 40rem;">
+<jsp:include page="languageSelector.jsp"/>
+<div class="card bg-light mb-2 border-info" style="width: 30rem;">
     <h2 class="card-header text-info"><fmt:message key="patient.details"/> </h2>
     <ul class="list-group list-group-flush">
         <li class="list-group-item"><b><fmt:message key="all_staff.table.id"/>:</b> ${requestScope.patient.id}</li>
         <li class="list-group-item"><b><fmt:message key="all_staff.table.username"/>:</b> ${requestScope.patient.username}</li>
-        <li class="list-group-item"><b><fmt:message key="login.password"/>:</b> ${requestScope.patient.password}</li>
         <li class="list-group-item"><b><fmt:message key="all_staff.table.first_name"/>:</b> ${requestScope.patient.firstName}</li>
         <li class="list-group-item"><b><fmt:message key="all_staff.table.last_name"/>:</b> ${requestScope.patient.lastName}</li>
         <li class="list-group-item"><b><fmt:message key="patients.birth_date"/>:</b> ${requestScope.patient.birthDate}</li>
@@ -27,7 +26,7 @@
         <li class="list-group-item"><b><fmt:message key="patient.phone_number"/>:</b> ${requestScope.patient.phoneNumber}</li>
     </ul>
     <div class="card-body">
-        <a href="${pageContext.request.contextPath}/update_patient?id=${requestScope.patient.id}"
+        <a href="${pageContext.request.contextPath}/controller?command=update_patient&id=${requestScope.patient.id}"
            class="btn btn-secondary">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                  class="bi bi-pencil-square"
@@ -37,7 +36,7 @@
                       d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"></path>
             </svg>
             <fmt:message key="patient.edit"/></a>
-        <a href="${pageContext.request.contextPath}/appoint_patient?patientId=${requestScope.patient.id}"
+        <a href="${pageContext.request.contextPath}/controller?command=appoint_patient&patientId=${requestScope.patient.id}"
            class="btn btn-primary">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                  class="bi bi-card-checklist" viewBox="0 0 16 16">
@@ -46,14 +45,14 @@
             </svg>
             <fmt:message key="patient.appoint"/>
         </a>
-        <a href="${pageContext.request.contextPath}/all_patients_doctors?id=${requestScope.patient.id}"
+        <a href="${pageContext.request.contextPath}/controller?command=all_patients_doctors&id=${requestScope.patient.id}"
            class="btn btn-success">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
                 <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"></path>
             </svg>
             <fmt:message key="patient.doctors"/>
         </a><br><br>
-        <a href="${pageContext.request.contextPath}/all_patients_cards?id=${requestScope.patient.id}"
+        <a href="${pageContext.request.contextPath}/controller?command=all_patients_cards&id=${requestScope.patient.id}"
            class="btn btn-success">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2-plus" viewBox="0 0 16 16">
                 <path d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5h3Z"></path>
@@ -62,7 +61,7 @@
             </svg>
             <fmt:message key="patient.card"/>
         </a>
-        <a href="${pageContext.request.contextPath}/discharge_patient?id=${requestScope.patient.id}"
+        <a href="${pageContext.request.contextPath}/controller?command=discharge_patient&id=${requestScope.patient.id}"
            class="btn btn-primary">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-check" viewBox="0 0 16 16">
                 <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z"></path>
@@ -71,9 +70,7 @@
             <fmt:message key="patient.discharge"/>
         </a>
     </div>
-
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
