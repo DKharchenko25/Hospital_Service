@@ -1,5 +1,7 @@
 package com.epam.hospital.controller.filters;
 
+import com.epam.hospital.utils.Roles;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,15 +60,15 @@ public class UserAccessContainer {
     public static boolean checkAccess(HttpServletRequest request) {
         String command = request.getParameter("command");
         String role = request.getSession().getAttribute("role").toString();
-        if (role.equals("ADMIN")) {
+        if (role.equals(Roles.ADMIN.toString())) {
             Optional<String> optionalAccess = ADMIN_ACCESS_LIST.stream().filter(element -> element.equals(command)).findAny();
             return optionalAccess.isPresent();
         }
-        if (role.equals("PATIENT")) {
+        if (role.equals(Roles.PATIENT.toString())) {
             Optional<String> optionalAccess = PATIENT_ACCESS_LIST.stream().filter(element -> element.equals(command)).findAny();
             return optionalAccess.isPresent();
         }
-        if (role.equals("DOCTOR") || role.equals("NURSE")) {
+        if (role.equals(Roles.DOCTOR.toString()) || role.equals(Roles.NURSE.toString())) {
             Optional<String> optionalAccess = STAFF_ACCESS_LIST.stream().filter(element -> element.equals(command)).findAny();
             return optionalAccess.isPresent();
         }

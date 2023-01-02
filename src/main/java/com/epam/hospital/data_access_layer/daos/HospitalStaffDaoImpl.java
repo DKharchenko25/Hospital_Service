@@ -34,6 +34,7 @@ public class HospitalStaffDaoImpl implements HospitalStaffDao {
             "on hs.id = hp.hospital_staff_id where patient_id=?";
     private static final String NUMBER_OF_ROWS = "select count(*) from hospital_staff";
 
+
     @Override
     public Optional<HospitalStaff> findById(long id) {
         try (Connection connection = DataSource.getConnection();
@@ -199,7 +200,7 @@ public class HospitalStaffDaoImpl implements HospitalStaffDao {
 
     @Override
     public List<HospitalStaff> findAllPageableAndSorted(int offset, int numberOfRows, Sorting sortBy) {
-        String query = "select * from hospital_staff order by " + sortBy.getPersistenceValue() + " limit ? offset ?";
+        String query = String.format("select * from hospital_staff order by %s limit ? offset ?", sortBy.getPersistenceValue());
         List<HospitalStaff> doctors = new ArrayList<>();
         try (Connection connection = DataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {

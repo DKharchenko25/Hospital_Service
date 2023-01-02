@@ -9,12 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class RequestExecutor {
-    private static final String REDIRECT_VALUE = "redirect";
 
     public void executeRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Command command = CommandFactory.getCommand(request);
         String commandReturnValue = command.execute(request, response);
-        if (!commandReturnValue.equals(REDIRECT_VALUE)) {
+        if (!commandReturnValue.equals(Path.REDIRECT)) {
             request.getRequestDispatcher(commandReturnValue).forward(request, response);
         }
     }

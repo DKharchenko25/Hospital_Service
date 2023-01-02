@@ -195,7 +195,7 @@ public class PatientDaoImpl implements PatientDao {
 
     @Override
     public List<Patient> findAllPageableAndSorted(int offset, int numberOfRows, Sorting sortBy) {
-        String query = "select * from patients order by " + sortBy.getPersistenceValue() + " limit ? offset ?";
+        String query = String.format("select * from patients order by %s limit ? offset ?", sortBy.getPersistenceValue());
         List<Patient> patients = new ArrayList<>();
         try (Connection connection = DataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {

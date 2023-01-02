@@ -14,10 +14,6 @@ public class CategoryDto {
     private Long id;
     private String name;
 
-    public CategoryDto(Long id) {
-        this.id = id;
-    }
-
     public CategoryDto(String name) {
         this.name = name;
     }
