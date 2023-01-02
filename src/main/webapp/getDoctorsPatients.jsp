@@ -24,8 +24,6 @@
                 <li class="list-group-item"><b><fmt:message
                         key="all_staff.table.username"/>:</b> ${requestScope.hospitalStaff.username}</li>
                 <li class="list-group-item"><b><fmt:message
-                        key="login.password"/>:</b> ${requestScope.hospitalStaff.password}</li>
-                <li class="list-group-item"><b><fmt:message
                         key="all_staff.table.first_name"/>:</b> ${requestScope.hospitalStaff.firstName}</li>
                 <li class="list-group-item"><b><fmt:message
                         key="all_staff.table.last_name"/>:</b> ${requestScope.hospitalStaff.lastName}</li>

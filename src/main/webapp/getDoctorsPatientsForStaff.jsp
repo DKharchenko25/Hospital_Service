@@ -22,8 +22,6 @@
                 <li class="list-group-item"><b><fmt:message key="all_staff.table.id"/>:</b> ${sessionScope.user.id}</li>
                 <li class="list-group-item"><b><fmt:message
                         key="all_staff.table.username"/>:</b> ${sessionScope.user.username}</li>
-                <li class="list-group-item"><b><fmt:message key="login.password"/>:</b> ${sessionScope.user.password}
-                </li>
                 <li class="list-group-item"><b><fmt:message
                         key="all_staff.table.first_name"/>:</b> ${sessionScope.user.firstName}</li>
                 <li class="list-group-item"><b><fmt:message

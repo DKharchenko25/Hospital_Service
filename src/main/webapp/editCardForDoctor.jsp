@@ -13,6 +13,7 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <body>
 <jsp:include page="staffNavbar.jsp"/>
+<jsp:include page="languageSelector.jsp"/>
 <div class="card bg-light mb-3 border-info" style="width: 50rem;">
     <h2 class="card-header text-info"><fmt:message key="card.edit"/> </h2>
     <div class="card-body">
