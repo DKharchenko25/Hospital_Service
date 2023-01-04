@@ -6,7 +6,7 @@ import com.epam.hospital.utils.Sorting;
 import java.util.List;
 import java.util.Optional;
 
-public interface PatientDao extends Dao<Patient> {
+public interface PatientDao extends ReadAndWriteDao<Patient> {
 
     Optional<Patient> findByUsername(String username);
 

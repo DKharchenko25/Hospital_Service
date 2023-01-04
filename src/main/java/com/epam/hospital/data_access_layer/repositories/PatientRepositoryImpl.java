@@ -1,6 +1,6 @@
 package com.epam.hospital.data_access_layer.repositories;
 
-import com.epam.hospital.data_access_layer.daos.Dao;
+import com.epam.hospital.data_access_layer.daos.ReadAndWriteDao;
 import com.epam.hospital.data_access_layer.daos.PatientDao;
 import com.epam.hospital.data_access_layer.models.HospitalStaff;
 import com.epam.hospital.data_access_layer.models.Patient;
@@ -15,9 +15,9 @@ public class PatientRepositoryImpl implements PatientRepository {
     private final PatientDao patientDao;
 
 
-    private final Dao<HospitalStaff> hospitalStaffDao;
+    private final ReadAndWriteDao<HospitalStaff> hospitalStaffDao;
 
-    public PatientRepositoryImpl(PatientDao patientDao, Dao<HospitalStaff> hospitalStaffDao) {
+    public PatientRepositoryImpl(PatientDao patientDao, ReadAndWriteDao<HospitalStaff> hospitalStaffDao) {
         this.patientDao = patientDao;
         this.hospitalStaffDao = hospitalStaffDao;
     }

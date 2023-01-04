@@ -13,13 +13,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Slf4j
-public class CategoryDaoImpl implements CategoryDao {
+public class CategoryDaoImpl implements ReadOnlyDao<Category> {
 
     private static final String FIND_BY_ID = "select * from categories where id=?";
     private static final String FIND_ALL = "select * from categories";
-    private static final String SAVE = "insert into categories values (default,?)";
-    private static final String DELETE = "delete from categories where id=?";
-    private static final String UPDATE = "update categories set name=? where id=?";
     private static final String FIND_BY_NAME = "select * from categories where name=?";
 
     @Override
@@ -60,46 +57,6 @@ public class CategoryDaoImpl implements CategoryDao {
         return categories;
     }
 
-    @Override
-    public void save(Category category) {
-        try (Connection connection = DataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SAVE)) {
-            preparedStatement.setString(1, category.getName());
-            preparedStatement.execute();
-            log.info("New category is added: {}", category.getName());
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public void deleteById(long id) {
-        try (Connection connection = DataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE)) {
-            preparedStatement.setLong(1, id);
-            preparedStatement.execute();
-            log.info("Category with ID {} is deleted", id);
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public void update(Category category) {
-        try (Connection connection = DataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
-            int parameterIndex = 0;
-            preparedStatement.setString(++parameterIndex, category.getName());
-            preparedStatement.setLong(++parameterIndex, category.getId());
-            preparedStatement.execute();
-            log.info("Category with ID {} is updated", category.getId());
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-            throw new RuntimeException(e);
-        }
-    }
 
     @Override
     public Optional<Category> findByName(String name) {

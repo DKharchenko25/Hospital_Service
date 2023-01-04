@@ -1,10 +1,11 @@
 package com.epam.hospital.controller.commands;
 
 import com.epam.hospital.controller.Path;
-import com.epam.hospital.data_access_layer.daos.CategoryDao;
 import com.epam.hospital.data_access_layer.daos.CategoryDaoImpl;
-import com.epam.hospital.data_access_layer.daos.RoleDao;
+import com.epam.hospital.data_access_layer.daos.ReadOnlyDao;
 import com.epam.hospital.data_access_layer.daos.RoleDaoImpl;
+import com.epam.hospital.data_access_layer.models.Category;
+import com.epam.hospital.data_access_layer.models.Role;
 import com.epam.hospital.facades.HospitalStaffFacade;
 import com.epam.hospital.facades.converters.CategoryConverter;
 import com.epam.hospital.facades.converters.RoleConverter;
@@ -38,10 +39,10 @@ public class StaffRegistrationCommand implements Command {
     }
 
     private String executeGet(HttpServletRequest request) {
-        RoleDao roleDao = new RoleDaoImpl();
+        ReadOnlyDao<Role> roleDao = new RoleDaoImpl();
         List<RoleDto> roles = roleDao.findAll().stream().map(RoleConverter::convertRoleToRoleDto).collect(Collectors.toList());
         request.getSession().setAttribute("roles", roles);
-        CategoryDao categoryDao = new CategoryDaoImpl();
+        ReadOnlyDao<Category> categoryDao = new CategoryDaoImpl();
         List<CategoryDto> categories = categoryDao.findAll().stream().map(CategoryConverter::convertCategoryToCategoryDto).collect(Collectors.toList());
         request.getSession().setAttribute("categories", categories);
         return Path.STAFF_REGISTRATION_PAGE;

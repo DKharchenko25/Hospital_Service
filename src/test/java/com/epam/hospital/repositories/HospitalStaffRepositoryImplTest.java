@@ -1,8 +1,7 @@
 package com.epam.hospital.repositories;
 
-import com.epam.hospital.data_access_layer.daos.CategoryDao;
 import com.epam.hospital.data_access_layer.daos.HospitalStaffDao;
-import com.epam.hospital.data_access_layer.daos.RoleDao;
+import com.epam.hospital.data_access_layer.daos.ReadOnlyDao;
 import com.epam.hospital.data_access_layer.models.Category;
 import com.epam.hospital.data_access_layer.models.HospitalStaff;
 import com.epam.hospital.data_access_layer.models.Role;
@@ -31,10 +30,10 @@ class HospitalStaffRepositoryImplTest {
     private HospitalStaffDao hospitalStaffDao;
 
     @Mock
-    private RoleDao roleDao;
+    private ReadOnlyDao<Role> roleDao;
 
     @Mock
-    private CategoryDao categoryDao;
+    private ReadOnlyDao<Category> categoryDao;
 
     private HospitalStaff hospitalStaff;
 

@@ -23,7 +23,8 @@ public class HospitalStaffServiceImpl implements HospitalStaffService {
             hospitalStaff.setPassword(PasswordEncoder.getEncodedPassword(hospitalStaff.getPassword()));
             hospitalStaffRepository.addStaff(hospitalStaff);
         } else {
-            String exceptionMessage = "User with username: " + hospitalStaff.getUsername() + " is already exists";
+            String exceptionMessage = String.format("User with username: %s is already exists",
+                    hospitalStaff.getUsername());
             log.error(exceptionMessage);
             throw new IllegalArgumentException(exceptionMessage);
         }
@@ -48,7 +49,7 @@ public class HospitalStaffServiceImpl implements HospitalStaffService {
         if (hospitalStaffRepository.getHospitalStaffByUsername(username).isPresent()) {
             return hospitalStaffRepository.getHospitalStaffByUsername(username).get();
         } else {
-            String exceptionMessage = "Hospital staff with username: " + username + " is not found";
+            String exceptionMessage = String.format("Hospital staff with username: %s is not found", username);
             log.error(exceptionMessage);
             throw new IllegalArgumentException(exceptionMessage);
         }

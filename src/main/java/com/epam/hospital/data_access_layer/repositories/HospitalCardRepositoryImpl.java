@@ -1,6 +1,6 @@
 package com.epam.hospital.data_access_layer.repositories;
 
-import com.epam.hospital.data_access_layer.daos.Dao;
+import com.epam.hospital.data_access_layer.daos.ReadAndWriteDao;
 import com.epam.hospital.data_access_layer.models.HospitalCard;
 import lombok.extern.slf4j.Slf4j;
 
@@ -11,11 +11,11 @@ import java.util.stream.Collectors;
 @Slf4j
 public class HospitalCardRepositoryImpl implements HospitalCardRepository {
 
-    private final Dao<HospitalCard> hospitalCardDao;
+    private final ReadAndWriteDao<HospitalCard> hospitalCardDao;
     private final PatientRepository patientRepository;
     private final HospitalStaffRepository hospitalStaffRepository;
 
-    public HospitalCardRepositoryImpl(Dao<HospitalCard> hospitalCardDao, PatientRepository patientRepository,
+    public HospitalCardRepositoryImpl(ReadAndWriteDao<HospitalCard> hospitalCardDao, PatientRepository patientRepository,
                                       HospitalStaffRepository hospitalStaffRepository) {
         this.hospitalCardDao = hospitalCardDao;
         this.patientRepository = patientRepository;

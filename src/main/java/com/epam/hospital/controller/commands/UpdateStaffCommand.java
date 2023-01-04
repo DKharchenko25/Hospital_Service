@@ -1,10 +1,11 @@
 package com.epam.hospital.controller.commands;
 
 import com.epam.hospital.controller.Path;
-import com.epam.hospital.data_access_layer.daos.CategoryDao;
 import com.epam.hospital.data_access_layer.daos.CategoryDaoImpl;
-import com.epam.hospital.data_access_layer.daos.RoleDao;
+import com.epam.hospital.data_access_layer.daos.ReadOnlyDao;
 import com.epam.hospital.data_access_layer.daos.RoleDaoImpl;
+import com.epam.hospital.data_access_layer.models.Category;
+import com.epam.hospital.data_access_layer.models.Role;
 import com.epam.hospital.facades.HospitalStaffFacade;
 import com.epam.hospital.facades.converters.CategoryConverter;
 import com.epam.hospital.facades.converters.RoleConverter;
@@ -40,8 +41,8 @@ public class UpdateStaffCommand implements Command {
         String id = request.getParameter("id");
         HospitalStaffDto hospitalStaff = hospitalStaffFacade.getHospitalStaffById(Long.valueOf(id));
         request.setAttribute("hospitalStaff", hospitalStaff);
-        RoleDao roleDao = new RoleDaoImpl();
-        CategoryDao categoryDao = new CategoryDaoImpl();
+        ReadOnlyDao<Role> roleDao = new RoleDaoImpl();
+        ReadOnlyDao<Category> categoryDao = new CategoryDaoImpl();
         List<RoleDto> roles = roleDao.findAll().stream()
                 .map(RoleConverter::convertRoleToRoleDto).collect(Collectors.toList());
         List<CategoryDto> categories = categoryDao.findAll().stream()

@@ -1,6 +1,6 @@
 package com.epam.hospital.repositories;
 
-import com.epam.hospital.data_access_layer.daos.Dao;
+import com.epam.hospital.data_access_layer.daos.ReadAndWriteDao;
 import com.epam.hospital.data_access_layer.models.HospitalCard;
 import com.epam.hospital.data_access_layer.models.HospitalStaff;
 import com.epam.hospital.data_access_layer.models.Patient;
@@ -27,7 +27,7 @@ class HospitalCardRepositoryImplTest {
     private HospitalCardRepository hospitalCardRepository;
 
     @Mock
-    private Dao<HospitalCard> hospitalCardDao;
+    private ReadAndWriteDao<HospitalCard> hospitalCardDao;
 
     @Mock
     private PatientRepository patientRepository;

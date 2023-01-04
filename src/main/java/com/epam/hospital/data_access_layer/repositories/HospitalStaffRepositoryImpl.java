@@ -1,9 +1,10 @@
 package com.epam.hospital.data_access_layer.repositories;
 
-import com.epam.hospital.data_access_layer.daos.CategoryDao;
 import com.epam.hospital.data_access_layer.daos.HospitalStaffDao;
-import com.epam.hospital.data_access_layer.daos.RoleDao;
+import com.epam.hospital.data_access_layer.daos.ReadOnlyDao;
+import com.epam.hospital.data_access_layer.models.Category;
 import com.epam.hospital.data_access_layer.models.HospitalStaff;
+import com.epam.hospital.data_access_layer.models.Role;
 import com.epam.hospital.utils.Sorting;
 
 import java.util.List;
@@ -12,10 +13,10 @@ import java.util.Optional;
 public class HospitalStaffRepositoryImpl implements HospitalStaffRepository {
 
     private final HospitalStaffDao hospitalStaffDao;
-    private final RoleDao roleDao;
-    private final CategoryDao categoryDao;
+    private final ReadOnlyDao<Role> roleDao;
+    private final ReadOnlyDao<Category> categoryDao;
 
-    public HospitalStaffRepositoryImpl(HospitalStaffDao hospitalStaffDao, RoleDao roleDao, CategoryDao categoryDao) {
+    public HospitalStaffRepositoryImpl(HospitalStaffDao hospitalStaffDao, ReadOnlyDao<Role> roleDao, ReadOnlyDao<Category> categoryDao) {
         this.hospitalStaffDao = hospitalStaffDao;
         this.roleDao = roleDao;
         this.categoryDao = categoryDao;

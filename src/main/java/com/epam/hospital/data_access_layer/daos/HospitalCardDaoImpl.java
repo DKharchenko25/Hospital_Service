@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Slf4j
-public class HospitalCardDaoImpl implements Dao<HospitalCard> {
+public class HospitalCardDaoImpl implements ReadAndWriteDao<HospitalCard> {
 
     private static final String FIND_BY_ID = "select * from hospital_card where id=?";
     private static final String FIND_ALL = "select * from hospital_card";

@@ -13,12 +13,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Slf4j
-public class RoleDaoImpl implements RoleDao {
+public class RoleDaoImpl implements ReadOnlyDao<Role> {
     private static final String FIND_BY_ID = "select * from roles where id=?";
     private static final String FIND_ALL = "select * from roles";
-    private static final String SAVE = "insert into roles values (default,?)";
-    private static final String DELETE = "delete from roles where id=?";
-    private static final String UPDATE = "update roles set name=? where id=?";
     private static final String FIND_BY_NAME = "select * from roles where name=?";
 
     @Override
@@ -57,47 +54,6 @@ public class RoleDaoImpl implements RoleDao {
             throw new RuntimeException(e);
         }
         return roles;
-    }
-
-    @Override
-    public void save(Role role) {
-        try (Connection connection = DataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SAVE)) {
-            preparedStatement.setString(1, role.getName());
-            preparedStatement.execute();
-            log.info("New role is added: {}", role.getName());
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public void deleteById(long id) {
-        try (Connection connection = DataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE)) {
-            preparedStatement.setLong(1, id);
-            preparedStatement.execute();
-            log.info("Role with ID {} is deleted", id);
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public void update(Role role) {
-        try (Connection connection = DataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
-            int parameterIndex = 0;
-            preparedStatement.setString(++parameterIndex, role.getName());
-            preparedStatement.setLong(++parameterIndex, role.getId());
-            preparedStatement.execute();
-            log.info("Role with ID {} is updated", role.getId());
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-            throw new RuntimeException(e);
-        }
     }
 
     @Override

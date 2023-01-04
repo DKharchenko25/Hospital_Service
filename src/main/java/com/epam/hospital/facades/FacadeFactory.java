@@ -1,7 +1,9 @@
 package com.epam.hospital.facades;
 
 import com.epam.hospital.data_access_layer.daos.*;
+import com.epam.hospital.data_access_layer.models.Category;
 import com.epam.hospital.data_access_layer.models.HospitalCard;
+import com.epam.hospital.data_access_layer.models.Role;
 import com.epam.hospital.data_access_layer.repositories.*;
 import com.epam.hospital.services.*;
 
@@ -9,9 +11,9 @@ import com.epam.hospital.services.*;
 public class FacadeFactory {
     private static final PatientDao PATIENT_DAO = new PatientDaoImpl();
     private static final HospitalStaffDao HOSPITAL_STAFF_DAO = new HospitalStaffDaoImpl();
-    private static final Dao<HospitalCard> HOSPITAL_CARD_DAO = new HospitalCardDaoImpl();
-    private static final RoleDao ROLE_DAO = new RoleDaoImpl();
-    private static final CategoryDao CATEGORY_DAO = new CategoryDaoImpl();
+    private static final ReadAndWriteDao<HospitalCard> HOSPITAL_CARD_DAO = new HospitalCardDaoImpl();
+    private static final ReadOnlyDao<Role> ROLE_DAO = new RoleDaoImpl();
+    private static final ReadOnlyDao<Category> CATEGORY_DAO = new CategoryDaoImpl();
     private static final PatientRepository PATIENT_REPOSITORY;
     private static final HospitalStaffRepository HOSPITAL_STAFF_REPOSITORY;
     private static final HospitalCardRepository HOSPITAL_CARD_REPOSITORY;
