@@ -8,7 +8,7 @@ import com.epam.hospital.data_access_layer.repositories.*;
 import com.epam.hospital.services.*;
 
 
-public class FacadeFactory {
+public class ApplicationContext {
     private static final PatientDao PATIENT_DAO = new PatientDaoImpl();
     private static final HospitalStaffDao HOSPITAL_STAFF_DAO = new HospitalStaffDaoImpl();
     private static final ReadAndWriteDao<HospitalCard> HOSPITAL_CARD_DAO = new HospitalCardDaoImpl();

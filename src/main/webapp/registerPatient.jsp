@@ -3,8 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="messages"/>
-<jsp:useBean id="now" class="java.util.Date"/>
-<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowFormatted"/>
+<%@ taglib prefix="date" uri = "/WEB-INF/custom.tld"%>
 <html lang="${sessionScope.lang}">
 <head>
     <title>Patient Registration</title>
@@ -95,7 +94,7 @@
                         <div class="mb-4">
                             <label for="birthDate" class="form-label"><fmt:message key="patients.birth_date"/> </label>
                             <input id="birthDate" required="required" class="form-control" type="date" name="birthDate"
-                                   path="birthDate" max="${nowFormatted}"/>
+                                   path="birthDate" max="<date:now/>"/>
                         </div>
 
                         <div class="row g-2">

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="messages"/>
 <html lang="${sessionScope.lang}">
@@ -17,13 +18,13 @@
 <div class="card bg-light mb-3 border-info" style="width: 30rem;">
     <h2 class="card-header text-info"><fmt:message key="patient.details"/> </h2>
     <ul class="list-group list-group-flush">
-        <li class="list-group-item"><b><fmt:message key="all_staff.table.id"/>:</b> ${sessionScope.user.id}</li>
-        <li class="list-group-item"><b><fmt:message key="all_staff.table.username"/>:</b> ${sessionScope.user.username}</li>
-        <li class="list-group-item"><b><fmt:message key="all_staff.table.first_name"/>:</b> ${sessionScope.user.firstName}</li>
-        <li class="list-group-item"><b><fmt:message key="all_staff.table.last_name"/>:</b> ${sessionScope.user.lastName}</li>
-        <li class="list-group-item"><b><fmt:message key="patients.birth_date"/>:</b> ${sessionScope.user.birthDate}</li>
-        <li class="list-group-item"><b><fmt:message key="patient.email"/>:</b> ${sessionScope.user.email}</li>
-        <li class="list-group-item"><b><fmt:message key="patient.phone_number"/>:</b> ${sessionScope.user.phoneNumber}</li>
+        <tags:listItem title="all_staff.table.id" value="${sessionScope.user.id}"/>
+        <tags:listItem title="all_staff.table.username" value="${sessionScope.user.username}"/>
+        <tags:listItem title="all_staff.table.first_name" value="${sessionScope.user.firstName}"/>
+        <tags:listItem title="all_staff.table.last_name" value="${sessionScope.user.lastName}"/>
+        <tags:listItem title="patients.birth_date" value="${sessionScope.user.birthDate}"/>
+        <tags:listItem title="patient.email" value="${sessionScope.user.email}"/>
+        <tags:listItem title="patient.phone_number" value="${sessionScope.user.phoneNumber}"/>
     </ul>
     <div class="card-body">
         <a href="${pageContext.request.contextPath}/controller?command=all_patients_doctors&id=${sessionScope.user.id}"

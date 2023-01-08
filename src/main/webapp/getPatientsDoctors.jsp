@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="messages"/>
 <html lang="${sessionScope.lang}">
@@ -19,20 +20,13 @@
         <div class="card bg-light mb-3 border-info d-inline-block" style="width: 30rem;">
             <h2 class="card-header text-info"><fmt:message key="patient.details"/></h2>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item"><b><fmt:message key="all_staff.table.id"/>:</b> ${requestScope.patient.id}
-                </li>
-                <li class="list-group-item"><b><fmt:message
-                        key="all_staff.table.username"/>:</b> ${requestScope.patient.username}</li>
-                <li class="list-group-item"><b><fmt:message
-                        key="all_staff.table.first_name"/>:</b> ${requestScope.patient.firstName}</li>
-                <li class="list-group-item"><b><fmt:message
-                        key="all_staff.table.last_name"/>:</b> ${requestScope.patient.lastName}</li>
-                <li class="list-group-item"><b><fmt:message
-                        key="patients.birth_date"/>:</b> ${requestScope.patient.birthDate}</li>
-                <li class="list-group-item"><b><fmt:message key="patient.email"/>:</b> ${requestScope.patient.email}
-                </li>
-                <li class="list-group-item"><b><fmt:message
-                        key="patient.phone_number"/>:</b> ${requestScope.patient.phoneNumber}</li>
+                <tags:listItem title="all_staff.table.id" value="${requestScope.patient.id}"/>
+                <tags:listItem title="all_staff.table.username" value="${requestScope.patient.username}"/>
+                <tags:listItem title="all_staff.table.first_name" value="${requestScope.patient.firstName}"/>
+                <tags:listItem title="all_staff.table.last_name" value="${requestScope.patient.lastName}"/>
+                <tags:listItem title="patients.birth_date" value="${requestScope.patient.birthDate}"/>
+                <tags:listItem title="patient.email" value="${requestScope.patient.email}"/>
+                <tags:listItem title="patient.phone_number" value="${requestScope.patient.phoneNumber}"/>
             </ul>
             <div class="card-body">
                 <a href="${pageContext.request.contextPath}/controller?command=update_patient&id=${requestScope.patient.id}"

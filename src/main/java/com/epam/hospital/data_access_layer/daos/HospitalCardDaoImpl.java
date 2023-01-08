@@ -90,7 +90,7 @@ public class HospitalCardDaoImpl implements ReadAndWriteDao<HospitalCard> {
             preparedStatement.setString(++parameterIndex, hospitalCard.getOperations());
             preparedStatement.setString(++parameterIndex, hospitalCard.getDiagnosis());
             preparedStatement.execute();
-            log.info("New card with is added for patient: {}", hospitalCard.getPatient().getUsername());
+            log.info("New card is added for patient: {}", hospitalCard.getPatient().getUsername());
         } catch (SQLException e) {
             log.error(e.getMessage());
             throw new RuntimeException(e);

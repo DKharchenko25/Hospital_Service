@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="messages"/>
 <html lang="${sessionScope.lang}">
@@ -19,20 +20,13 @@
         <div class="card bg-light mb-3 border-info d-inline-block" style="width: 30rem;">
             <h2 class="card-header text-info"><fmt:message key="staff.details"/></h2>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item"><b><fmt:message
-                        key="all_staff.table.id"/>:</b> ${requestScope.hospitalStaff.id}</li>
-                <li class="list-group-item"><b><fmt:message
-                        key="all_staff.table.username"/>:</b> ${requestScope.hospitalStaff.username}</li>
-                <li class="list-group-item"><b><fmt:message
-                        key="all_staff.table.first_name"/>:</b> ${requestScope.hospitalStaff.firstName}</li>
-                <li class="list-group-item"><b><fmt:message
-                        key="all_staff.table.last_name"/>:</b> ${requestScope.hospitalStaff.lastName}</li>
-                <li class="list-group-item"><b><fmt:message
-                        key="all_staff.table.role"/>:</b> ${requestScope.hospitalStaff.role}</li>
-                <li class="list-group-item"><b><fmt:message
-                        key="all_staff.table.category"/>:</b> ${requestScope.hospitalStaff.category}</li>
-                <li class="list-group-item"><b><fmt:message
-                        key="all_staff.table.number"/>:</b> ${requestScope.hospitalStaff.numberOfPatients}</li>
+                <tags:listItem title="all_staff.table.id" value="${requestScope.hospitalStaff.id}"/>
+                <tags:listItem title="all_staff.table.username" value="${requestScope.hospitalStaff.username}"/>
+                <tags:listItem title="all_staff.table.first_name" value="${requestScope.hospitalStaff.firstName}"/>
+                <tags:listItem title="all_staff.table.last_name" value="${requestScope.hospitalStaff.lastName}"/>
+                <tags:listItem title="all_staff.table.role" value="${requestScope.hospitalStaff.role}"/>
+                <tags:listItem title="all_staff.table.category" value="${requestScope.hospitalStaff.category}"/>
+                <tags:listItem title="all_staff.table.number" value="${requestScope.hospitalStaff.numberOfPatients}"/>
             </ul>
             <div class="card-body">
                 <a href="${pageContext.request.contextPath}/controller?command=update_hospital_staff&id=${requestScope.hospitalStaff.id}"

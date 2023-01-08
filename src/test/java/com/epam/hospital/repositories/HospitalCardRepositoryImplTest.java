@@ -49,8 +49,6 @@ class HospitalCardRepositoryImplTest {
         hospitalCardRepository = new HospitalCardRepositoryImpl(hospitalCardDao, patientRepository, hospitalStaffRepository);
         hospitalCard = new HospitalCard();
         hospitalCard.setId(1L);
-        hospitalCard.setDoctorId(1L);
-        hospitalCard.setPatientId(1L);
         hospitalCard.setProcedures("procedures");
         hospitalCard.setMedications("medications");
         hospitalCard.setOperations("operations");
@@ -76,18 +74,18 @@ class HospitalCardRepositoryImplTest {
     @Test
     void getHospitalCardByIdSuccess() {
         when(hospitalCardDao.findById(hospitalCard.getId())).thenReturn(Optional.of(hospitalCard));
-        when(patientRepository.getPatientById(hospitalCard.getPatientId())).thenReturn(Optional.of(patient));
-        when(hospitalStaffRepository.getHospitalStaffById(hospitalCard.getDoctorId())).thenReturn(Optional.of(hospitalStaff));
+        when(patientRepository.getPatientById(hospitalCard.getPatient().getId())).thenReturn(Optional.of(patient));
+        when(hospitalStaffRepository.getHospitalStaffById(hospitalCard.getDoctor().getId())).thenReturn(Optional.of(hospitalStaff));
         assertEquals(Optional.of(hospitalCard), hospitalCardRepository.getHospitalCardById(hospitalCard.getId()));
     }
 
     @Test
     void getHospitalCardByIdMustThrowIllegalArgumentException() {
         when(hospitalCardDao.findById(hospitalCard.getId())).thenReturn(Optional.of(hospitalCard));
-        when(patientRepository.getPatientById(hospitalCard.getPatientId())).thenReturn(Optional.empty());
+        when(patientRepository.getPatientById(hospitalCard.getPatient().getId())).thenReturn(Optional.empty());
         assertThrows(IllegalArgumentException.class, () -> hospitalCardRepository.getHospitalCardById(hospitalCard.getId()));
 
-        lenient().when(hospitalStaffRepository.getHospitalStaffById(hospitalCard.getDoctorId())).thenReturn(Optional.empty());
+        lenient().when(hospitalStaffRepository.getHospitalStaffById(hospitalCard.getDoctor().getId())).thenReturn(Optional.empty());
         assertThrows(IllegalArgumentException.class, () -> hospitalCardRepository.getHospitalCardById(hospitalCard.getId()));
     }
 
@@ -100,26 +98,26 @@ class HospitalCardRepositoryImplTest {
     @Test
     void getAllHospitalCardsSuccess() {
         when(hospitalCardDao.findAll()).thenReturn(hospitalCards);
-        when(patientRepository.getPatientById(hospitalCard.getPatientId())).thenReturn(Optional.of(patient));
-        when(hospitalStaffRepository.getHospitalStaffById(hospitalCard.getDoctorId())).thenReturn(Optional.of(hospitalStaff));
+        when(patientRepository.getPatientById(hospitalCard.getPatient().getId())).thenReturn(Optional.of(patient));
+        when(hospitalStaffRepository.getHospitalStaffById(hospitalCard.getDoctor().getId())).thenReturn(Optional.of(hospitalStaff));
         assertEquals(hospitalCards, hospitalCardRepository.getAllHospitalCards());
     }
 
     @Test
     void getAllHospitalCardsMustThrowIllegalArgumentException() {
         when(hospitalCardDao.findAll()).thenReturn(hospitalCards);
-        when(patientRepository.getPatientById(hospitalCard.getPatientId())).thenReturn(Optional.empty());
+        when(patientRepository.getPatientById(hospitalCard.getPatient().getId())).thenReturn(Optional.empty());
         assertThrows(IllegalArgumentException.class, () -> hospitalCardRepository.getAllHospitalCards());
 
-        lenient().when(hospitalStaffRepository.getHospitalStaffById(hospitalCard.getDoctorId())).thenReturn(Optional.empty());
+        lenient().when(hospitalStaffRepository.getHospitalStaffById(hospitalCard.getDoctor().getId())).thenReturn(Optional.empty());
         assertThrows(IllegalArgumentException.class, () -> hospitalCardRepository.getAllHospitalCards());
     }
 
     @Test
     void getAllPatientHospitalCardsByIdSuccess() {
         when(hospitalCardDao.findAll()).thenReturn(hospitalCards);
-        when(patientRepository.getPatientById(hospitalCard.getPatientId())).thenReturn(Optional.of(patient));
-        when(hospitalStaffRepository.getHospitalStaffById(hospitalCard.getDoctorId())).thenReturn(Optional.of(hospitalStaff));
+        when(patientRepository.getPatientById(hospitalCard.getPatient().getId())).thenReturn(Optional.of(patient));
+        when(hospitalStaffRepository.getHospitalStaffById(hospitalCard.getDoctor().getId())).thenReturn(Optional.of(hospitalStaff));
         assertEquals(hospitalCards, hospitalCardRepository.getAllPatientHospitalCardsById(patient.getId()));
     }
 

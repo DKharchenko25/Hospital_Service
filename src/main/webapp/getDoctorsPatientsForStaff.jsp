@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="messages"/>
 <html lang="${sessionScope.lang}">
@@ -19,18 +20,13 @@
         <div class="card bg-light mb-3 border-info d-inline-block" style="width: 40rem;">
             <h2 class="card-header text-info"><fmt:message key="staff.details"/></h2>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item"><b><fmt:message key="all_staff.table.id"/>:</b> ${sessionScope.user.id}</li>
-                <li class="list-group-item"><b><fmt:message
-                        key="all_staff.table.username"/>:</b> ${sessionScope.user.username}</li>
-                <li class="list-group-item"><b><fmt:message
-                        key="all_staff.table.first_name"/>:</b> ${sessionScope.user.firstName}</li>
-                <li class="list-group-item"><b><fmt:message
-                        key="all_staff.table.last_name"/>:</b> ${sessionScope.user.lastName}</li>
-                <li class="list-group-item"><b><fmt:message key="staff.details"/>:</b> ${sessionScope.user.role}</li>
-                <li class="list-group-item"><b><fmt:message
-                        key="all_staff.table.category"/>:</b> ${sessionScope.user.category}</li>
-                <li class="list-group-item"><b><fmt:message
-                        key="all_staff.table.number"/>:</b> ${sessionScope.user.numberOfPatients}</li>
+                <tags:listItem title="all_staff.table.id" value="${sessionScope.user.id}"/>
+                <tags:listItem title="all_staff.table.username" value="${sessionScope.user.username}"/>
+                <tags:listItem title="all_staff.table.first_name" value="${sessionScope.user.firstName}"/>
+                <tags:listItem title="all_staff.table.last_name" value="${sessionScope.user.lastName}"/>
+                <tags:listItem title="all_staff.table.role" value="${sessionScope.user.role}"/>
+                <tags:listItem title="all_staff.table.category" value="${sessionScope.user.category}"/>
+                <tags:listItem title="all_staff.table.number" value="${sessionScope.user.numberOfPatients}"/>
             </ul>
             <div class="card-body">
                 <button type="button" class="btn btn-primary" disabled>
